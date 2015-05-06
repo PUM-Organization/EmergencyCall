@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="alarm">ALARM !!!</string>
+    <string name="title_activity_configure">ConfigureActivity</string>
+    <string name="title_activity_configure_facebook">ConfigureFacebookActivity</string>
+    <string name="title_activity_add_person">AddPersonActivity</string>
+    <string name="title_activity_list_person">ListPersonActivity</string>
 </resources>

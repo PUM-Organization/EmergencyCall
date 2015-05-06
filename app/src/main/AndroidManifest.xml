@@ -16,6 +16,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:label="@string/title_activity_alarm" >
+        </activity>
+        <activity
+            android:name=".ConfigureActivity"
+            android:label="@string/title_activity_configure" >
+        </activity>
+        <activity
+            android:name=".ConfigureFacebookActivity"
+            android:label="@string/title_activity_configure_facebook" >
+        </activity>
+        <activity
+            android:name=".AddPersonActivity"
+            android:label="@string/title_activity_add_person" >
+        </activity>
+        <activity
+            android:name=".ListPersonActivity"
+            android:label="@string/title_activity_list_person" >
+        </activity>
     </application>
 
 </manifest>

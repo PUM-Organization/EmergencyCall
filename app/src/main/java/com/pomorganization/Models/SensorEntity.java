@@ -1,6 +1,6 @@
 package com.pomorganization.Models;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by Daniel on 5/6/2015.

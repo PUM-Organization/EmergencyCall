@@ -2,16 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pomorganization.emergencycall" >
 
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -21,32 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AlarmActivity"
-            android:label="@string/title_activity_alarm" >
-        </activity>
-        <activity
-            android:name=".ConfigureActivity"
-            android:label="@string/title_activity_configure" >
-        </activity>
-        <activity
-            android:name=".ConfigureFacebookActivity"
-            android:label="@string/title_activity_configure_facebook" >
-        </activity>
-        <activity
-            android:name=".AddPersonActivity"
-            android:label="@string/title_activity_add_person" >
-        </activity>
-        <activity
-            android:name=".ListPersonActivity"
-            android:label="@string/title_activity_list_person" >
-        </activity>
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
     </application>
 
 </manifest>

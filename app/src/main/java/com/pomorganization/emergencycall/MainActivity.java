@@ -1,16 +1,9 @@
 package com.pomorganization.emergencycall;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-import com.facebook.FacebookSdk;
-
-
-import com.pomorganization.Services.SMSService;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -19,10 +12,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,29 +34,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    public void onStartServiceButtonClick(View view)
-    {
-
-        Toast toast = new Toast(this);
-        toast.setText("Background Service Started");
-        toast.show();
-    }
-    public void onConfigureButtonClick(View view)
-    {
-        startActivity(new Intent(this, ConfigureActivity.class));
-    }
-    public void onSendSMSButtonClick(View view)
-    {
-        SMSService smsService = new SMSService();
-        try
-        {
-            smsService.SendSMS("+48889075102","ALARM");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-
     }
 }

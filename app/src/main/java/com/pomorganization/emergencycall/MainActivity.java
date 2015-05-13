@@ -7,8 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import com.facebook.FacebookSdk;
 
-import com.pomorganization.Services.BackgroundService;
+
+import com.pomorganization.Services.SMSService;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -17,6 +19,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
     }
 
 
@@ -43,13 +47,26 @@ public class MainActivity extends ActionBarActivity {
     }
     public void onStartServiceButtonClick(View view)
     {
-        startService(new Intent(this,BackgroundService.class));
+
         Toast toast = new Toast(this);
         toast.setText("Background Service Started");
         toast.show();
     }
     public void onConfigureButtonClick(View view)
     {
-        startActivity(new Intent(this,ConfigureActivity.class));
+        startActivity(new Intent(this, ConfigureActivity.class));
+    }
+    public void onSendSMSButtonClick(View view)
+    {
+        SMSService smsService = new SMSService();
+        try
+        {
+            smsService.SendSMS("+48889075102","ALARM");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
     }
 }

@@ -3,7 +3,7 @@ package com.pomorganization.Models;
 /**
  * Created by Daniel on 5/6/2015.
  */
-public class AlarmedPerson extends Entity {
+public class AlarmedPerson  {
     private String PhoneNumber;
     private String Name;
 

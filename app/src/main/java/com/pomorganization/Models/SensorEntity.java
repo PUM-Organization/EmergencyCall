@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by Daniel on 5/6/2015.
  */
-public abstract class SensorEntity extends Entity {
+public abstract class SensorEntity {
 
     private Date time;
 

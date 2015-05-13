@@ -9,4 +9,5 @@
     <string name="title_activity_configure_facebook">ConfigureFacebookActivity</string>
     <string name="title_activity_add_person">AddPersonActivity</string>
     <string name="title_activity_list_person">ListPersonActivity</string>
+    <string name="facebook_app_id">761389620625786</string>
 </resources>

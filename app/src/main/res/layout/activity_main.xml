@@ -18,6 +18,17 @@
         android:text="Configure"
         android:textSize="48sp"
         android:layout_marginTop="220dp"
-        android:onClick="onConfigureButtonClick"/>
+        android:onClick="onConfigureButtonClick"
+        android:id="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Sms"
+        android:id="@+id/sendSms"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:onClick="onSendSMSButtonClick"/>
 
 </RelativeLayout>

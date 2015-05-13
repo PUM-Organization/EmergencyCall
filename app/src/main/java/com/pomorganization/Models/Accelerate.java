@@ -7,33 +7,17 @@ package com.pomorganization.Models;
  */
 public class Accelerate extends SensorEntity{
 
-    private Float accX;
-    private Float accY;
-    private Float accZ;
+   private Double meanAccelerate;
 
-
-
-    public Float getAccX() {
-        return accX;
+    public Accelerate(Float accX, Float accY, Float accZ) {
+       meanAccelerate = Math.sqrt(Math.pow(accX,2)+Math.pow(accY,2)+Math.pow(accZ,2));
     }
 
-    public void setAccX(Float accX) {
-        this.accX = accX;
+    public Double getMeanAccelerate() {
+        return meanAccelerate;
     }
 
-    public Float getAccY() {
-        return accY;
-    }
-
-    public void setAccY(Float accY) {
-        this.accY = accY;
-    }
-
-    public Float getAccZ() {
-        return accZ;
-    }
-
-    public void setAccZ(Float accZ) {
-        this.accZ = accZ;
+    public void setMeanAccelerate(Double meanAccelerate) {
+        this.meanAccelerate = meanAccelerate;
     }
 }

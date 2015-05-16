@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     float z = 0;
     double q = 10;
     boolean alertOn = false;
+    MediaPlayer mp = MediaPlayer.create(this, R.raw.sonsongsong);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,9 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         textViewAccY.setText("Y: "+Float.toString(y));
         textViewAccZ.setText("Z: "+Float.toString(z));
         textViewAccQ.setText("Q: "+Double.toString(q));
+
+
+
 
 ///
 
@@ -155,12 +160,13 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     }
     public void onStopButtonClickListener(View view) throws IOException {
 
-        //TODO code there
+        mp.stop();
 
     }
 
     public void alert (){
         Toast.makeText(getApplicationContext(), "ALERT!", Toast.LENGTH_SHORT).show();
+        mp.start();
     }
 
 

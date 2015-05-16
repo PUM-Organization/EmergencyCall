@@ -1,18 +1,66 @@
 package com.pomorganization.emergencycall;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+import java.lang.Math;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements SensorEventListener {
+
+
+
+
+    private SensorManager sensorManager;
+    private Sensor accelerometerSensor;
+    private FileOutputStream fos;
+    private TextView listFiles;
+    private String textToSave ="";
+    float x = 0;
+    float y = 0;
+    float z = 0;
+    double q = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//daniel
+        listFiles = (TextView) findViewById(R.id.fileList);
+        listFiles.setText("");
+        for(String file : fileList())
+        {
+            listFiles.setText(file+"     ");
+        }
+
+        TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
+        TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
+        TextView textViewAccZ = (TextView) findViewById(R.id.acc_z);
+
+        textViewAccX.setText("X: "+Float.toString(x));
+        textViewAccY.setText("Y: "+Float.toString(y));
+        textViewAccZ.setText("Z: "+Float.toString(z));
+
+///
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,4 +83,71 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    //daniel
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+        {
+            x= event.values[0];
+            y= event.values[1];
+            z= event.values[2];
+
+            q = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));
+
+            if (q < 2){
+                Toast.makeText(getApplicationContext(),"ALERT!",Toast.LENGTH_SHORT).show();
+                q = 10;
+            }
+
+
+        }
+        TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
+        TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
+        TextView textViewAccZ = (TextView) findViewById(R.id.acc_z);
+
+        textViewAccX.setText("X: "+Float.toString(x));
+        textViewAccY.setText("Y: "+Float.toString(y));
+        textViewAccZ.setText("Z: "+Float.toString(z));
+        textToSave =new Date().toString() + ","+ Float.toString(x) + ","+Float.toString(y) + ","+Float.toString(z) +"\n";
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+
+    public void onStartButtonClickListener(View view) throws IOException {
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        Toast.makeText(getApplicationContext(),"Inicjalizacja ...", Toast.LENGTH_SHORT).show();
+        boolean isSensorListenerInitialized = sensorManager.registerListener(this,accelerometerSensor,SensorManager.SENSOR_DELAY_FASTEST);
+
+        if(isSensorListenerInitialized)
+        {
+            Toast.makeText(getApplicationContext(),"Inicjalizacja zako?czona",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"B??d",Toast.LENGTH_SHORT).show();
+        }
+
+        TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
+        TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
+        TextView textViewAccZ = (TextView) findViewById(R.id.acc_z);
+
+        textViewAccX.setText("X: "+Float.toString(x));
+        textViewAccY.setText("Y: "+Float.toString(y));
+        textViewAccZ.setText("Z: "+Float.toString(z));
+
+    }
+    public void onStopButtonClickListener(View view) throws IOException {
+
+        q = 0;
+
+    }
+
+
+    //
 }

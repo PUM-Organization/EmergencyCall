@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             }
 
             if (q > 8 && alertOn == true){
-                alert(alertOn);
+                alert();
                 alertOn = false;
             }
 
@@ -159,7 +159,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
 
     }
 
-    public void alert (boolean alertOn){
+    public void alert (){
         Toast.makeText(getApplicationContext(), "ALERT!", Toast.LENGTH_SHORT).show();
     }
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fileList" type="id" />
+    <item name="acc_x" type="id" />
+    <item name="acc_y" type="id" />
+    <item name="acc_z" type="id" />
+    <item name="acc_q" type="id" />
+</resources>

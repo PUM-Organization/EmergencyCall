@@ -36,6 +36,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     float y = 0;
     float z = 0;
     double q = 10;
+    boolean alertOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,12 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
         TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
         TextView textViewAccZ = (TextView) findViewById(R.id.acc_z);
+        TextView textViewAccQ = (TextView) findViewById(R.id.acc_q);
 
         textViewAccX.setText("X: "+Float.toString(x));
         textViewAccY.setText("Y: "+Float.toString(y));
         textViewAccZ.setText("Z: "+Float.toString(z));
+        textViewAccQ.setText("Q: "+Double.toString(q));
 
 ///
 
@@ -95,8 +98,12 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             q = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));
 
             if (q < 2){
-                Toast.makeText(getApplicationContext(),"ALERT!",Toast.LENGTH_SHORT).show();
-                q = 10;
+                alertOn = true;
+            }
+
+            if (q > 8 && alertOn == true){
+                alert(alertOn);
+                alertOn = false;
             }
 
 
@@ -104,10 +111,12 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
         TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
         TextView textViewAccZ = (TextView) findViewById(R.id.acc_z);
+        TextView textViewAccQ = (TextView) findViewById(R.id.acc_q);
 
         textViewAccX.setText("X: "+Float.toString(x));
         textViewAccY.setText("Y: "+Float.toString(y));
         textViewAccZ.setText("Z: "+Float.toString(z));
+        textViewAccQ.setText("Q: "+Double.toString(q));
         textToSave =new Date().toString() + ","+ Float.toString(x) + ","+Float.toString(y) + ","+Float.toString(z) +"\n";
     }
 
@@ -136,16 +145,22 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
         TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
         TextView textViewAccZ = (TextView) findViewById(R.id.acc_z);
+        TextView textViewAccQ = (TextView) findViewById(R.id.acc_q);
 
         textViewAccX.setText("X: "+Float.toString(x));
         textViewAccY.setText("Y: "+Float.toString(y));
         textViewAccZ.setText("Z: "+Float.toString(z));
+        textViewAccQ.setText("Q: "+Double.toString(q));
 
     }
     public void onStopButtonClickListener(View view) throws IOException {
 
-        q = 0;
+        //TODO code there
 
+    }
+
+    public void alert (boolean alertOn){
+        Toast.makeText(getApplicationContext(), "ALERT!", Toast.LENGTH_SHORT).show();
     }
 
 

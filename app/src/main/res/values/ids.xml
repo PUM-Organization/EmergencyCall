@@ -5,4 +5,5 @@
     <item name="acc_y" type="id" />
     <item name="acc_z" type="id" />
     <item name="acc_q" type="id" />
+    <item name="C" type="id" />
 </resources>

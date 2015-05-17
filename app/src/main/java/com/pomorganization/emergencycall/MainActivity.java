@@ -1,11 +1,16 @@
 package com.pomorganization.emergencycall;
 
+import android.app.Notification;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -38,10 +43,16 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     float z = 0;
     double q = 10;
     boolean alertOn = false;
-    MediaPlayer mp = MediaPlayer.create(this, R.raw.sonsongsong);
+    boolean alertSoundOn = false;
+    Notification notification = new Notification();
+    int counter = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //daniel
@@ -56,11 +67,13 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
         TextView textViewAccZ = (TextView) findViewById(R.id.acc_z);
         TextView textViewAccQ = (TextView) findViewById(R.id.acc_q);
+        TextView textViewC = (TextView) findViewById(R.id.C);
 
         textViewAccX.setText("X: "+Float.toString(x));
         textViewAccY.setText("Y: "+Float.toString(y));
         textViewAccZ.setText("Z: "+Float.toString(z));
         textViewAccQ.setText("Q: "+Double.toString(q));
+        textViewC.setText("Counter: "+Integer.toString(counter));
 
 
 
@@ -158,17 +171,28 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         textViewAccQ.setText("Q: "+Double.toString(q));
 
     }
-    public void onStopButtonClickListener(View view) throws IOException {
-
-        mp.stop();
-
+    public void onStopButtonClickListener(View view) throws IOException{
+        alertSound(alertSoundOn = false);
     }
 
     public void alert (){
         Toast.makeText(getApplicationContext(), "ALERT!", Toast.LENGTH_SHORT).show();
-        mp.start();
+        alertSound(alertSoundOn = true);
     }
 
+    public void alertSound(boolean alertSoundOn){
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.sonsongsong);
+
+        if (alertSoundOn == true){
+            mp.setVolume(0.1F, 0.1F);
+            mp.start();
+            counter++;
+            TextView textViewC = (TextView) findViewById(R.id.C);
+            textViewC.setText("Counter: " + Integer.toString(counter));
+        } else if (alertSoundOn == false) {
+            mp.stop();
+        }
+    }
 
     //
 }

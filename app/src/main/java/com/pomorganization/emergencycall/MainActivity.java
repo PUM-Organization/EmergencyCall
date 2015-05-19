@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.lang.Math;
+import java.util.Timer;
 
 
 public class MainActivity extends ActionBarActivity implements SensorEventListener {
@@ -172,7 +173,9 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
 
     }
     public void onStopButtonClickListener(View view) throws IOException{
-        alertSound(alertSoundOn = false);
+        Timer timer1 = new Timer();
+        Checking timer1_task = new Checking(0);   //w tym mo?emy przes?a? do timera poprzez instruktor ??dan? warto??
+        timer1.schedule(timer1_task, 2000, 2000);
     }
 
     public void alert (){

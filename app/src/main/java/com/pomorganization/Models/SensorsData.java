@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by Daniel on 5/19/2015.
  */
 public class SensorsData {
+
     //return miliseconds from 197...
     private Long timeStamp;
     //medium value of accelerometer values

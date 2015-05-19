@@ -1,5 +1,7 @@
 package com.pomorganization.helpers;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class ShiftRegisterList<T> extends ArrayList<T> implements List<T> {
     @Override
     public boolean add(T o)
     {
+        Log.d("PUMMMMMMMMMMMMMMM","ROZMIAR : "+this.size());
         if(super.size() < maxSize)
         {
             super.add(o);

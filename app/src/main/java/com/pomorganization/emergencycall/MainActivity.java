@@ -20,6 +20,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pomorganization.Models.SensorsData;
+import com.pomorganization.helpers.ShiftRegisterList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,6 +34,7 @@ import java.util.Timer;
 
 public class MainActivity extends ActionBarActivity implements SensorEventListener {
 
+    private static final int SHIFT_REGISTER_SIZE = 500;
 
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
@@ -46,10 +50,13 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     Notification notification = new Notification();
     int counter = 0;
 
+    private DataSingleton dataSingleton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        dataSingleton = DataSingleton.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -74,7 +81,9 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         textViewC.setText("Counter: "+Integer.toString(counter));
 
 
-
+        Timer timer1 = new Timer();
+        Checking timer1_task = new Checking();   //przesylamy do timera 500 probek danych z akcelerometru przy f probkowania akcelerometru=100Hz to dane z ostatnich 5s
+        timer1.schedule(timer1_task, 5000, 5000);
 
 ///
 
@@ -111,17 +120,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             y= event.values[1];
             z= event.values[2];
 
-            q = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));
-
-            if (q < 2){
-                alertOn = true;
-            }
-
-            if (q > 8 && alertOn == true){
-                alert();
-                alertOn = false;
-            }
-
+            dataSingleton.sensorsData.add(new SensorsData(x,y,z,null));
 
         }
         TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
@@ -147,7 +146,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         Toast.makeText(getApplicationContext(),"Inicjalizacja ...", Toast.LENGTH_SHORT).show();
-        boolean isSensorListenerInitialized = sensorManager.registerListener(this,accelerometerSensor,SensorManager.SENSOR_DELAY_FASTEST);
+        boolean isSensorListenerInitialized = sensorManager.registerListener(this,accelerometerSensor,SensorManager.SENSOR_DELAY_NORMAL);
 
         if(isSensorListenerInitialized)
         {
@@ -171,7 +170,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     }
     public void onStopButtonClickListener(View view) throws IOException{
         Timer timer1 = new Timer();
-        Checking timer1_task = new Checking(0);   //w tym mo?emy przes?a? do timera poprzez instruktor ??dan? warto??
+        Checking timer1_task = new Checking();   //przesy?amy do timera 500 probek danych z akcelerometru przy f probkowania akcelerometru=100Hz to dane z ostatnich 5s
         timer1.schedule(timer1_task, 2000, 2000);
     }
 

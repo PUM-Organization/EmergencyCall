@@ -25,6 +25,7 @@ public class DataSingleton {
         sensorsData = new ShiftRegisterList<>(SHIFT_REGISTER_SIZE);
     }
 
+
     public  ShiftRegisterList<SensorsData> sensorsData;
 
 

@@ -34,7 +34,7 @@ import java.util.Timer;
 
 public class MainActivity extends ActionBarActivity implements SensorEventListener {
 
-    private static final int SHIFT_REGISTER_SIZE = 500;
+
 
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
@@ -80,9 +80,9 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         textViewAccQ.setText("Q: "+Double.toString(q));
         textViewC.setText("Counter: "+Integer.toString(counter));
 
-
+        //run check task after 5 seconds from add and run every 5 second
         Timer timer1 = new Timer();
-        Checking timer1_task = new Checking();   //przesylamy do timera 500 probek danych z akcelerometru przy f probkowania akcelerometru=100Hz to dane z ostatnich 5s
+        Checking timer1_task = new Checking();
         timer1.schedule(timer1_task, 5000, 5000);
 
 ///
@@ -120,6 +120,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             y= event.values[1];
             z= event.values[2];
 
+            //add sensor data to FIFO Queue
             dataSingleton.sensorsData.add(new SensorsData(x,y,z,null));
 
         }

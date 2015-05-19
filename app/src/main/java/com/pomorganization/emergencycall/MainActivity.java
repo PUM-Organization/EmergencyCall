@@ -32,8 +32,6 @@ import java.util.Timer;
 public class MainActivity extends ActionBarActivity implements SensorEventListener {
 
 
-
-
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private FileOutputStream fos;
@@ -47,7 +45,6 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     boolean alertSoundOn = false;
     Notification notification = new Notification();
     int counter = 0;
-
 
 
     @Override

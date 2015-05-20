@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pomorganization.Models.SensorsData;
-import com.pomorganization.helpers.ShiftRegisterList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,21 +35,26 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
 
 
 
+
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private FileOutputStream fos;
     private TextView listFiles;
     private String textToSave ="";
-    float x = 0;
-    float y = 0;
-    float z = 0;
+    public static float x = 0;
+    public static float y = 0;
+    public static float z = 0;
     double q = 10;
+    boolean alertQualifi = false;
     boolean alertOn = false;
     boolean alertSoundOn = false;
-    Notification notification = new Notification();
     int counter = 0;
+    MediaPlayer mp;
+    public AccelerateSensor accelerateSensor = new AccelerateSensor();
 
     private DataSingleton dataSingleton;
+
+
 
 
     @Override
@@ -80,13 +84,11 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         textViewAccQ.setText("Q: "+Double.toString(q));
         textViewC.setText("Counter: "+Integer.toString(counter));
 
+        mp = MediaPlayer.create(this, R.raw.sonsongsong);
         //run check task after 5 seconds from add and run every 5 second
         Timer timer1 = new Timer();
         Checking timer1_task = new Checking();
-        timer1.schedule(timer1_task, 5000, 5000);
-
-///
-
+        timer1.schedule(timer1_task, 5000, 50);
     }
 
 
@@ -121,8 +123,8 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
             z= event.values[2];
 
             //add sensor data to FIFO Queue
-            dataSingleton.sensorsData.add(new SensorsData(x,y,z,null));
-
+//            dataSingleton.sensorsData.add(new SensorsData(x,y,z,null));
+//            accelerateSensor.setX(x);
         }
         TextView textViewAccX = (TextView) findViewById(R.id.acc_x);
         TextView textViewAccY = (TextView) findViewById(R.id.acc_y);
@@ -132,7 +134,7 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         textViewAccX.setText("X: "+Float.toString(x));
         textViewAccY.setText("Y: "+Float.toString(y));
         textViewAccZ.setText("Z: "+Float.toString(z));
-        textViewAccQ.setText("Q: "+Double.toString(q));
+        textViewAccQ.setText("Q: " + Double.toString(q));
         textToSave =new Date().toString() + ","+ Float.toString(x) + ","+Float.toString(y) + ","+Float.toString(z) +"\n";
     }
 
@@ -172,27 +174,39 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     public void onStopButtonClickListener(View view) throws IOException{
         Timer timer1 = new Timer();
         Checking timer1_task = new Checking();   //przesy?amy do timera 500 probek danych z akcelerometru przy f probkowania akcelerometru=100Hz to dane z ostatnich 5s
-        timer1.schedule(timer1_task, 2000, 2000);
+        timer1.schedule(timer1_task, 2000, 50);
+
+        mp.stop();
+
     }
 
     public void alert (){
         Toast.makeText(getApplicationContext(), "ALERT!", Toast.LENGTH_SHORT).show();
-        alertSound(alertSoundOn = true);
+//        alertSound(alertSoundOn = true);
     }
 
     public void alertSound(boolean alertSoundOn){
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.sonsongsong);
-
+        mp = MediaPlayer.create(this, R.raw.sonsongsong);
+        alertSoundOn = true;
+        
         if (alertSoundOn == true){
+            alertSoundOn = false;
             mp.setVolume(0.1F, 0.1F);
+            mp.setLooping(true);
             mp.start();
-            counter++;
-            TextView textViewC = (TextView) findViewById(R.id.C);
-            textViewC.setText("Counter: " + Integer.toString(counter));
-        } else if (alertSoundOn == false) {
-            mp.stop();
-        }
+
+
+        }   
     }
+
+    public static AccelerateSensor getAccelerateSensor (AccelerateSensor accelerateSensor){
+        accelerateSensor.setX(x);
+        accelerateSensor.setY(y);
+        accelerateSensor.setZ(z);
+        return accelerateSensor;
+    }
+
+
 
     //
 }

@@ -6,7 +6,6 @@ import java.util.Date;
  * Created by Daniel on 5/19/2015.
  */
 public class SensorsData {
-
     //return miliseconds from 197...
     private Long timeStamp;
     //medium value of accelerometer values
@@ -31,6 +30,18 @@ public class SensorsData {
 
     public Float getProximityValue() {
         return proximityValue;
+    }
+
+    public void setAccMediumValue(Double accMediumValue) {
+        this.accMediumValue = accMediumValue;
+    }
+
+    public void setProximityValue(Float proximityValue) {
+        this.proximityValue = proximityValue;
+    }
+
+    public void setTimeStamp(Long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
 

@@ -1,6 +1,7 @@
 package com.pomorganization.emergencycall;
 
 import android.content.Context;
+import android.hardware.SensorEvent;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.pomorganization.helpers.ShiftRegisterList;
 import java.io.ObjectInputStream;
 import java.util.Timer;
 import java.util.TimerTask;
+import android.hardware.SensorEvent;
 
 
 /**
@@ -27,9 +29,14 @@ public class Checking extends TimerTask{
     //singleto with sensors data
     private DataSingleton dataSingleton;
 
+
     //temp variable to calculate falling time ( endOfFallTimeStamp - beginOfFallTimeStamp)
     Long beginOfFallTimeStamp = 0L;
     Long endOfFallTimeStamp = 0L;
+    SensorsData data;
+    AccelerateSensor accelerateSensor = new AccelerateSensor();
+    private int alertQualifi = 0;
+
 
     //constructor
     public Checking(){
@@ -39,40 +46,60 @@ public class Checking extends TimerTask{
 
     @Override
     public void run() {
-        for(int x=0; x<dataSingleton.sensorsData.size();++x)
-        {
-            //current data
-            SensorsData data = dataSingleton.sensorsData.get(x);
+        MainActivity.getAccelerateSensor(accelerateSensor);
+        dataSingleton.sensorsData.add(new SensorsData(accelerateSensor.getX(), accelerateSensor.getY(), accelerateSensor.getZ(), null));
 
-
-            if(data.getAccMediumValue()<2)
-            {
-                //if fall is begin
-                if(beginOfFallTimeStamp ==0)
-                    beginOfFallTimeStamp = data.getTimeStamp();
-                //if fall is next
-                else
-                    endOfFallTimeStamp = data.getTimeStamp();
-            }
-            //end of falling or fall isn't started
-            else
-            {
-                //calculate time of falling
-                Long timeOfFall = endOfFallTimeStamp - beginOfFallTimeStamp;
-                //check if time of falling is enough big
-                if(timeOfFall>MINIMAL_TIME_OF_FALL)
-                {
-                    //if yes call alarm
-                    alarm();
-                }
-                else {
-                    beginOfFallTimeStamp =0L;
-                    endOfFallTimeStamp = 0L;
-                }
-            }
-
-
+        for (int i = 0; i < dataSingleton.sensorsData.size(); i++){
+            Log.d("Parametr SensorData: ", "Acc = " + dataSingleton.sensorsData.get(i).getAccMediumValue() + "    Time = " + dataSingleton.sensorsData.get(i).getTimeStamp());
         }
+
+        for (int i = 0; i < dataSingleton.sensorsData.size(); i++){
+            if (dataSingleton.sensorsData.get(i).getAccMediumValue() < 2){
+                alertQualifi++;
+            }
+        }
+
+        if (alertQualifi > 8){
+            alertQualifi = 0;
+            alarm();
+        }
+
+
+
+//        for(int x=0; x<dataSingleton.sensorsData.size();++x)
+//        {
+//            //current data
+//            SensorsData data = dataSingleton.sensorsData.get(x);
+//
+//
+//            if(data.getAccMediumValue()<2)
+//            {
+//                //if fall is begin
+//                if(beginOfFallTimeStamp ==0)
+//                    beginOfFallTimeStamp = data.getTimeStamp();
+//                //if fall is next
+//                else
+//                    endOfFallTimeStamp = data.getTimeStamp();
+//            }
+//            //end of falling or fall isn't started
+//            else
+//            {
+//                //calculate time of falling
+//                Long timeOfFall = endOfFallTimeStamp - beginOfFallTimeStamp;
+//                //check if time of falling is enough big
+//                if(timeOfFall>MINIMAL_TIME_OF_FALL)
+//                {
+//                    //if yes call alarm
+//                    alarm();
+//                }
+//                else {
+//                    beginOfFallTimeStamp =0L;
+//                    endOfFallTimeStamp = 0L;
+//                }
+//            }
+//
+//
+//        }
 
     }
 

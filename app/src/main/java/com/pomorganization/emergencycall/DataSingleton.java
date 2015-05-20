@@ -8,7 +8,7 @@ import com.pomorganization.helpers.ShiftRegisterList;
  */
 public class DataSingleton {
 
-    private static final int SHIFT_REGISTER_SIZE = 500;
+    private static final int SHIFT_REGISTER_SIZE = 15;
     private static DataSingleton ourInstance;
 
     public synchronized static DataSingleton getInstance() {

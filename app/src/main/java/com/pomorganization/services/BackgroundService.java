@@ -26,12 +26,20 @@ public class BackgroundService extends Service implements SensorEventListener{
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
 
+    private DataSingleton dataSingleton;
+    private Handler handler;
+
     float x = 0;
     float y = 0;
     float z = 0;
 
-    private DataSingleton dataSingleton;
-    private Handler handler;
+
+    //minimal value of time falling down in ms
+    private static final Long MINIMAL_TIME_OF_FALL = 250L;
+    //temp variable to calculate falling time ( endOfFallTimeStamp - beginOfFallTimeStamp)
+    Long beginOfFallTimeStamp = 0L;
+    Long endOfFallTimeStamp = 0L;
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -96,11 +104,6 @@ public class BackgroundService extends Service implements SensorEventListener{
 
 
 
-    //minimal value of time falling down in ms
-    private static final Long MINIMAL_TIME_OF_FALL = 10L;
-    //temp variable to calculate falling time ( endOfFallTimeStamp - beginOfFallTimeStamp)
-    Long beginOfFallTimeStamp = 0L;
-    Long endOfFallTimeStamp = 0L;
 
 
     public void check() {

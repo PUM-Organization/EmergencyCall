@@ -1,6 +1,7 @@
 package com.pomorganization.emergencycall;
 
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,15 +11,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.logging.LogRecord;
+
+
 public class AlarmActivity extends ActionBarActivity {
 
     private boolean ALARM_STARTED;
-
+    private TextView textView;
+    private MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.sonsongsong);
         alert();
 
     }
@@ -49,23 +55,22 @@ public class AlarmActivity extends ActionBarActivity {
     {
         ALARM_STARTED = false;
 
+        mp.pause();
+            mp.stop();
+
+
+
     }
 
     public void alert (){
         Toast.makeText(getApplicationContext(), "ALERT!", Toast.LENGTH_SHORT).show();
-        alertSound(ALARM_STARTED = true);
+        ALARM_STARTED = true;
+        alertSound();
     }
-    public void alertSound(boolean alertSoundOn){
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.sonsongsong);
-
-        if (alertSoundOn == true){
-            mp.setVolume(0.1F, 0.1F);
-            mp.start();
-
-
-        } else if (alertSoundOn == false) {
-            mp.stop();
-        }
+    public void alertSound(){
+        mp.setVolume(0.1F, 0.1F);
+        mp.start();
     }
+
 
 }

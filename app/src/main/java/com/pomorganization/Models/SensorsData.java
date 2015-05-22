@@ -14,6 +14,12 @@ public class SensorsData {
     //value from proximity sensor
     private Float proximityValue;
 
+    public SensorsData(Long timeStamp, Double accMediumValue, Float proximityValue) {
+        this.timeStamp = timeStamp;
+        this.accMediumValue = accMediumValue;
+        this.proximityValue = proximityValue;
+    }
+
     public SensorsData(Float accX,Float accY,Float accZ, Float proximityValue) {
         this.accMediumValue = Math.sqrt(Math.pow(accX,2)+ Math.pow(accY,2) + Math.pow(accZ,2));
         this.proximityValue = proximityValue;
@@ -34,4 +40,9 @@ public class SensorsData {
     }
 
 
+    @Override
+    public String toString()
+    {
+        return "Sensor data " + getAccMediumValue() + "     time : " + getTimeStamp();
+    }
 }

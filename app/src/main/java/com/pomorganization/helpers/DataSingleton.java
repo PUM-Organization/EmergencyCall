@@ -1,14 +1,13 @@
-package com.pomorganization.emergencycall;
+package com.pomorganization.helpers;
 
 import com.pomorganization.Models.SensorsData;
-import com.pomorganization.helpers.ShiftRegisterList;
 
 /**
  * Created by Daniel on 5/19/2015.
  */
 public class DataSingleton {
 
-    private static final int SHIFT_REGISTER_SIZE = 500;
+    public static final int SHIFT_REGISTER_SIZE = 250;
     private static DataSingleton ourInstance;
 
     public synchronized static DataSingleton getInstance() {
@@ -16,15 +15,12 @@ public class DataSingleton {
         {
             ourInstance = new DataSingleton();
         }
-
-
         return ourInstance;
     }
 
     private DataSingleton() {
         sensorsData = new ShiftRegisterList<>(SHIFT_REGISTER_SIZE);
     }
-
 
     public  ShiftRegisterList<SensorsData> sensorsData;
 

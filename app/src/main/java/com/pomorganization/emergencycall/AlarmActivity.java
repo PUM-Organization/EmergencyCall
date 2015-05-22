@@ -1,28 +1,32 @@
 package com.pomorganization.emergencycall;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.pomorganization.services.BackgroundService;
 
-import java.io.IOException;
+public class AlarmActivity extends ActionBarActivity {
 
-public class MainActivity extends ActionBarActivity  {
+    private boolean ALARM_STARTED;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_alarm);
+
+        alert();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_alarm, menu);
         return true;
     }
 
@@ -41,14 +45,27 @@ public class MainActivity extends ActionBarActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onStartButtonClickListener(View view) throws IOException {
-        startService(new Intent(this, BackgroundService.class));
+    public void onCancelButtonClick(View view)
+    {
+        ALARM_STARTED = false;
+
     }
 
-
-    public void onStopButtonClickListener(View view) throws IOException{
-        stopService(new Intent(MainActivity.this,BackgroundService.class));
+    public void alert (){
+        Toast.makeText(getApplicationContext(), "ALERT!", Toast.LENGTH_SHORT).show();
+        alertSound(ALARM_STARTED = true);
     }
+    public void alertSound(boolean alertSoundOn){
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.sonsongsong);
 
+        if (alertSoundOn == true){
+            mp.setVolume(0.1F, 0.1F);
+            mp.start();
+
+
+        } else if (alertSoundOn == false) {
+            mp.stop();
+        }
+    }
 
 }

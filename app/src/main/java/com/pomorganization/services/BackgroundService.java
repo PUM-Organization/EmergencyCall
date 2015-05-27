@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
 import com.pomorganization.Models.SensorsData;
 import com.pomorganization.emergencycall.AlarmActivity;
 import com.pomorganization.helpers.DataSingleton;
@@ -35,7 +36,7 @@ public class BackgroundService extends Service implements SensorEventListener{
 
 
     //minimal value of time falling down in ms
-    private static final Long MINIMAL_TIME_OF_FALL = 250L;
+    private static final Long MINIMAL_TIME_OF_FALL = 190L;
     //temp variable to calculate falling time ( endOfFallTimeStamp - beginOfFallTimeStamp)
     Long beginOfFallTimeStamp = 0L;
     Long endOfFallTimeStamp = 0L;
@@ -57,6 +58,7 @@ public class BackgroundService extends Service implements SensorEventListener{
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         handler = new Handler();
         handler.postDelayed(runnable, 5000);

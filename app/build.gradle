@@ -4,6 +4,9 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    repositories{
+        mavenCentral()
+    }
     defaultConfig {
         applicationId "com.pomorganization.emergencycall"
         minSdkVersion 9
@@ -22,4 +25,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.facebook.android:facebook-android-sdk:4.1.0'
+    compile 'com.android.support:support-v4:22.1.1'
+
 }

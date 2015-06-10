@@ -4,57 +4,28 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1">
 
-    <TextView
-        android:text="@string/TitleText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/acc_x"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/acc_y"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/acc_z"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/acc_q"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/C"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/startButton"
-        android:text="Start"
+        android:text="Start usługi"
         android:onClick="onStartButtonClickListener"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
+        android:layout_width="match_parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal" />
+
     <Button
         android:id="@+id/stopButton"
-        android:text="End"
+        android:text="Wyłącznienie usługi"
         android:onClick="onStopButtonClickListener"
-        android:layout_width="wrap_content"
+        android:layout_width="289dp"
         android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/fileList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:text="Ustawienia"
-        android:onClick="onSettingsButtonClickListener"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
-
-
-
 
 </LinearLayout>

@@ -26,6 +26,10 @@ import java.util.Arrays;
 import java.util.List;
 
 
+/**
+ *
+ *   Fragment for facebook configure
+ */
 public class FacebookActivityFragment extends Fragment {
 
     private TextView mTextDetails;

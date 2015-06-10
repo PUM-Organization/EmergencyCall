@@ -14,13 +14,10 @@ import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 
-
+/**
+ *
+ */
 public class FacebookActivity extends FragmentActivity {
-
-
-
-
-
 
 
     @Override

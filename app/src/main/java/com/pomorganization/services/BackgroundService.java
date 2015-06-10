@@ -20,8 +20,9 @@ import com.pomorganization.helpers.ShiftRegisterList;
 
 /**
  * Created by Daniel on 5/19/2015.
+ * Main Service which is running in  background
  */
-//TODO : move detecting fall to background service from MainActivity
+
 public class BackgroundService extends Service implements SensorEventListener{
 
     private SensorManager sensorManager;
@@ -30,16 +31,16 @@ public class BackgroundService extends Service implements SensorEventListener{
     private DataSingleton dataSingleton;
     private Handler handler;
 
-    float x = 0;
-    float y = 0;
-    float z = 0;
+    private float x = 0;
+    private float y = 0;
+    private float z = 0;
 
 
     //minimal value of time falling down in ms
     private static final Long MINIMAL_TIME_OF_FALL = 190L;
     //temp variable to calculate falling time ( endOfFallTimeStamp - beginOfFallTimeStamp)
-    Long beginOfFallTimeStamp = 0L;
-    Long endOfFallTimeStamp = 0L;
+    private Long beginOfFallTimeStamp = 0L;
+    private Long endOfFallTimeStamp = 0L;
 
 
     @Override
@@ -103,11 +104,9 @@ public class BackgroundService extends Service implements SensorEventListener{
     };
 
 
-
-
-
-
-
+    /**
+     * method to detect falling
+     */
     public void check() {
         for (int x = 0; x < dataSingleton.sensorsData.size(); ++x) {
             //current data
@@ -142,7 +141,6 @@ public class BackgroundService extends Service implements SensorEventListener{
                     Intent intent = new Intent(this,AlarmActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-
 
 
                 } else {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -39,7 +40,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ *   Main Activity
+ */
 public class MainActivity extends ActionBarActivity  {
 
     @Override
@@ -49,13 +52,14 @@ public class MainActivity extends ActionBarActivity  {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
     }
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -65,7 +69,14 @@ public class MainActivity extends ActionBarActivity  {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_contactSettings) {
+            Intent intent = new Intent(getApplicationContext(),PhoneNumbersActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if(id == R.id.action_facebookSettings){
+            Intent intent = new Intent(getApplicationContext(),FacebookActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -74,6 +85,8 @@ public class MainActivity extends ActionBarActivity  {
 
     public void onStartButtonClickListener(View view) throws IOException {
         startService(new Intent(this, BackgroundService.class));
+//        Intent intent = new Intent(getApplicationContext(),AlarmActivity.class);
+//        startActivity(intent);
     }
 
 
@@ -81,10 +94,5 @@ public class MainActivity extends ActionBarActivity  {
         stopService(new Intent(MainActivity.this, BackgroundService.class));
     }
 
-    public void onSettingsButtonClickListener(View view)
-    {
-        Intent intent = new Intent(getApplicationContext(),SettingsActivity.class);
-        startActivity(intent);
-    }
 
 }

@@ -7,7 +7,9 @@ import java.util.List;
 
 /**
  * Created by Daniel on 5/14/2015.
+ * Extends ArrayList to keep data from sensors
  */
+
 public class ShiftRegisterList<T> extends ArrayList<T> implements List<T> {
     private int maxSize;
 

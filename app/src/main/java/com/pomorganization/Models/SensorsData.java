@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by Daniel on 5/19/2015.
+ * Model of Data from sensors
  */
 public class SensorsData {
 

@@ -13,7 +13,9 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Daniel on 5/25/2015.
+ * Maked for temp to generate signature for facebook
  */
+
 public class MyApplication extends Application {
 
     @Override
@@ -22,7 +24,9 @@ public class MyApplication extends Application {
         printHash();
     }
 
-
+    /**
+     * method to generate hash for facebook api
+     */
     public void printHash()
     {
         try {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/custom_row">
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:id="@+id/listContacNameEditText"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        />
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:id="@+id/listContacPhoneNumberEditText"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="125dp"
+        />
+</FrameLayout>

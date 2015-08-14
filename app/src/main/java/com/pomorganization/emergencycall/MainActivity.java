@@ -84,9 +84,9 @@ public class MainActivity extends ActionBarActivity  {
     }
 
     public void onStartButtonClickListener(View view) throws IOException {
-        startService(new Intent(this, BackgroundService.class));
-//        Intent intent = new Intent(getApplicationContext(),AlarmActivity.class);
-//        startActivity(intent);
+        //startService(new Intent(this, BackgroundService.class));
+        Intent intent = new Intent(getApplicationContext(),AlarmActivity.class);
+        startActivity(intent);
     }
 
 
